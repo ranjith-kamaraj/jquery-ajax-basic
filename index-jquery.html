@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ajax Example using JQuery</title>
+    <style>
+        #todo-card{
+            border: 1px solid black;
+            padding: 10px;
+            margin: 5px;
+            width: 400px;
+            float: left;
+            background: #060606;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Todos</h1>
+    <div id="todos"></div>
+    <script src="lib/jquery-3.3.1.js"></script>
+    <script>
+        $.ajax({
+            method : "GET",
+            url: "https://jsonplaceholder.typicode.com/todos", 
+            success: function (result) {
+                let dom = "";
+                result.forEach(function(todo, index){
+                    let item = "<div id='todo-card'>";
+                    item = item +"<p> ID: "+todo.id+"</p>";
+                    item = item +"<p> Title: "+todo.title+"</p>";
+                    item = item +"<p> User Id:"+todo.userId+"</p>";
+                    item = item +"<p> Completed: "+todo.completed+"</p>";
+                    item = item+"</div>"
+                    dom = dom + item;
+                })
+                $("#todos").append(dom);
+            },
+            error: function(result){
+                alert("Error while getting todos "+ result.statusText);
+            }
+        });
+    </script>
+</body>
+
+</html>
